@@ -24,7 +24,7 @@ function App() {
           );
         })}
       </nav>
-      <ProfileModal />
+      <ProfileModal show={true} />
 
       <BrowserRouter>
         <Routes>
