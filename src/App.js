@@ -4,15 +4,19 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Demo from "./pages/Demo";
 import ProfileModal from "./components/Dailog/ProfileModal";
+import { BsPersonFill } from "react-icons/bs";
+import Login from "./pages/Login";
 
 function App() {
-  const [navItems, setNavitems] = useState([
+  const [navItems, setNavItems] = useState([
     { title: "Home", url: "/" },
     { title: "Tweet", url: "/tweet" },
   ]);
+  const [popup, setPopup] = useState(false);
+
   return (
     <>
-      <nav className="flex gap-4 p-5 px-8 shadow-lg text-gray-50 bg-slate-700">
+      <nav className="flex items-center gap-4 p-5 px-8 shadow-lg text-gray-50 bg-slate-700">
         {navItems.map((item, i) => {
           return (
             <div
@@ -23,12 +27,21 @@ function App() {
             </div>
           );
         })}
+        <div
+          className="absolute text-2xl right-8 "
+          onClick={() => {
+            console.log("log");
+            setPopup(!popup);
+          }}
+        >
+          <BsPersonFill />
+        </div>
       </nav>
-      <ProfileModal show={true} />
-
+      <ProfileModal show={popup} />
       <BrowserRouter>
         <Routes>
           <Route exact path="/demo" element={<Demo />}></Route>
+          <Route exact path="/login" element={<Login />}></Route>
         </Routes>
       </BrowserRouter>
     </>

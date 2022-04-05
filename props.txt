@@ -1,0 +1,12 @@
+Input Props definition:
+
+{
+    type: "text"                                          // to define type of input
+    path: "addresses[0]"                                  // Define relative path to main fields obj
+    handleChange:"(e,path)=> function to handleChange",   // Function to handle Changes.
+    error:"if any error",                                 // Error value of current fields.
+    value: "1001",                                        // Value for that field
+    name:"userId",                                        // name of that field
+    title:"User Id",                                      // Title of that field
+    placeholder:"Enter your Id here",                     // Placeholder of that field.
+}   
