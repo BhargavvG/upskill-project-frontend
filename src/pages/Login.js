@@ -73,7 +73,7 @@ export default function Login() {
           );
         })}
 
-        <button className="p-2 px-6 mx-auto text-lg font-medium text-center bg-teal-500 rounded-lg shadow-lg btn hover:bg-teal-400">
+        <button className="p-2 px-6 mx-auto text-lg font-medium text-center text-white rounded-lg shadow-lg bg-slate-700 hover:bg-slate-600 btn">
           {" "}
           Login
         </button>
