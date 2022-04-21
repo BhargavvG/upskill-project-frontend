@@ -1,8 +1,19 @@
 import React, { useState, useContext } from "react";
 import { LoginContext } from "../../Context/LoginContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileModal({ show }) {
   const { loggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    if (loggedIn) {
+      localStorage.removeItem("token");
+      window.location.reload();
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div
@@ -27,8 +38,11 @@ export default function ProfileModal({ show }) {
               <p className="font-medium text-gray-500 cursor-pointer hover:text-slate-600">
                 My Tweets
               </p>
-              <button className="p-2 font-medium text-white rounded-lg btn bg-slate-700 hover:bg-slate-600">
-                Logout
+              <button
+                className="p-2 font-medium text-white rounded-lg btn bg-slate-700 hover:bg-slate-600"
+                onClick={logout}
+              >
+                {loggedIn ? "Logout" : "Login"}
               </button>
             </div>
           </div>

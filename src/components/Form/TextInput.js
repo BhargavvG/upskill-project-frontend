@@ -11,8 +11,8 @@ export default function TextInput({
   index,
   placeholder,
 }) {
-  console.log(path);
-  console.log(index, "key");
+  // console.log(path);
+  // console.log(index, "key");
   return (
     <div class="my-4">
       <div class="flex">
@@ -28,7 +28,7 @@ export default function TextInput({
           handleChange(e, path, index);
         }}
       />
-      <p class="my-1 text-red-700">{error}</p>
+      <p class="my-1 text-red-700/60 text-sm">{error}</p>
     </div>
   );
 }
