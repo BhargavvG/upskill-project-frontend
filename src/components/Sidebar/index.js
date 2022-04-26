@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import channel from "../../services/channel";
 
 export default function Index({ selectedChannel, handleChannel }) {
-  const [channels, setChannels] = useState([
-    { title: "Public", url: "./public", id: 101 },
-    { title: "Dot Net", url: "./dotnet", id: 102 },
-    { title: "PHP", url: "./php", id: 103 },
-  ]);
+  const [channels, setChannels] = useState([]);
+
+  useEffect(() => {
+    channel.getAllChannels().then((res) => {
+      if (res) {
+        setChannels(res.data);
+      }
+    });
+  }, []);
   return (
-    <div className="float-left w-1/5 py-6 pl-6 space-x-4 border-r border-gray-200 sidebar bg-[#f0edea] fixed h-full overflow-y-auto overflow-x-hidden">
+    <div className=" w-1/5 py-6 pl-6 space-x-4 border-r border-gray-200 sidebar bg-[#f0edea] fixed h-full overflow-y-auto overflow-x-hidden">
       <h2 className="p-4 px-10 text-lg font-medium">Channels</h2>
       <div className="flex flex-col items-center">
         {channels.map((item, i) => {
@@ -26,7 +31,7 @@ export default function Index({ selectedChannel, handleChannel }) {
                 handleChannel(item.id);
               }}
             >
-              {item.title}
+              {item.name}
             </Link>
           );
         })}

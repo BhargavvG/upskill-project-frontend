@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Demo from "./pages/Demo";
+import Demo from "./pages/Tweet";
 import Login from "./pages/Login";
 import Test from "./pages/Test";
 import Navbar from "./components/Navbar";
