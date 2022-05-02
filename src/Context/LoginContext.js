@@ -9,11 +9,17 @@ export const LoginState = (props) => {
 
   const verifyUser = () => {
     if (localStorage.token) {
-      userObj.getProfile().then((res) => {
-        setUser(res.data);
-        setLoggedIn(true);
-        setLoading(false);
-      });
+      userObj
+        .getProfile()
+        .then((res) => {
+          setUser(res.data);
+          setLoggedIn(true);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }

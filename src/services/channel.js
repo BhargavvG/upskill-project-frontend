@@ -13,6 +13,9 @@ class ChannelServices {
   updateChannel(id, body) {
     return client.put(`/channel/update${id}`, body);
   }
+  getChannel(body) {
+    return client.post(`/channel/get`, body);
+  }
 }
 let channel = new ChannelServices();
 export default channel;

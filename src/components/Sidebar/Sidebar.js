@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import channel from "../../services/channel";
 
-export default function Index({ selectedChannel, handleChannel }) {
-  const [channels, setChannels] = useState([]);
-
-  useEffect(() => {
-    channel.getAllChannels().then((res) => {
-      if (res) {
-        setChannels(res.data);
-      }
-    });
-  }, []);
+export default function Sidebar({ selectedChannel, handleChannel, channels }) {
   return (
     <div className=" w-1/5 py-6 pl-6 space-x-4 border-r border-gray-200 sidebar bg-[#f0edea] fixed h-full overflow-y-auto overflow-x-hidden">
       <h2 className="p-4 px-10 text-lg font-medium">Channels</h2>
@@ -23,12 +13,12 @@ export default function Index({ selectedChannel, handleChannel }) {
               key={i}
               to={item.url}
               style={
-                selectedChannel === item.id
+                selectedChannel?.id === item.id
                   ? { backgroundColor: "#e9ddd2" }
                   : {}
               }
               onClick={() => {
-                handleChannel(item.id);
+                handleChannel(item);
               }}
             >
               {item.name}

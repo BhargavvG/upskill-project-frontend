@@ -1,17 +1,47 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/Sidebar";
+import React, { useState, useEffect, useContext } from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
 import TweetCard from "../components/TweetCard/TweetCard";
 import tweet from "../services/tweet";
+import channel from "../services/channel";
+import { LoginContext } from "../Context/LoginContext";
 
-export default function Demo() {
+export default function TweetPage() {
   const [selectedChannel, setSelectedChannel] = useState(0);
   const [tweets, setTweets] = useState([]);
+  const { user } = useContext(LoginContext);
+  const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    tweet.getAllTweets().then((res) => {
-      setTweets(res.data);
-    });
-  }, []);
+    if (user) {
+      channel
+        .getChannel({ subscribedChannels: user.channels || [1100] })
+        .then((res) => {
+          setChannels(res.data);
+          // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (channels) {
+      setSelectedChannel(channels[0]);
+    }
+  }, [channels]);
+
+  useEffect(() => {
+    tweet
+      .getTweetByChannels({ selectedChannels: [selectedChannel.id] })
+      .then((res) => {
+        console.log(res);
+        setTweets(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [selectedChannel]);
 
   const handleChannel = (channel) => {
     setSelectedChannel(channel);
@@ -19,6 +49,7 @@ export default function Demo() {
   return (
     <>
       <Sidebar
+        channels={channels}
         selectedChannel={selectedChannel}
         handleChannel={handleChannel}
       />

@@ -7,6 +7,12 @@ class TweetServices {
   getTweetById(id) {
     return client.get(`/tweet/${id}`);
   }
+  getTweetByUser() {
+    return client.get(`/tweet/byUser`);
+  }
+  getTweetByChannels(body) {
+    return client.post(`/tweet/byChannels`, body);
+  }
   addTweet(body) {
     return client.post("/tweet/add", body);
   }

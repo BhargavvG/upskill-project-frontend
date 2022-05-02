@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiHeart } from "react-icons/fi";
-import { FaRegComment } from "react-icons/fa";
+import { BiBookmarkPlus } from "react-icons/bi";
 import tweetObj from "../../services/tweet";
 
 export default function TweetCard({ tweet }) {
@@ -36,6 +36,9 @@ export default function TweetCard({ tweet }) {
       console.log(res);
     });
   };
+
+  // Save for Later
+  const saveForLater = () => {};
 
   return (
     <div className="float-left p-4">
@@ -74,9 +77,12 @@ export default function TweetCard({ tweet }) {
               {likeCount} {likeCount > 1 ? "Likes" : "Like"}
             </span>
           </div>
-          <div className="flex items-center mx-auto my-3 text-lg">
-            <FaRegComment />
-            <span className="pl-2 text-sm text-slate-800">2 Comments</span>
+          <div
+            className="flex items-center mx-auto my-3 text-lg"
+            onClick={saveForLater}
+          >
+            <BiBookmarkPlus />
+            <span className="pl-2 text-sm text-slate-800">Save for Later</span>
           </div>
         </div>
       </div>
