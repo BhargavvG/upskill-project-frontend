@@ -6,7 +6,15 @@ import channel from "../services/channel";
 import { LoginContext } from "../Context/LoginContext";
 
 export default function TweetPage() {
-  const [selectedChannel, setSelectedChannel] = useState(0);
+  let defaultChannel = {
+    "_id": "6267cd3edb4980059dd8820e",
+    "name": "public",
+    "createdOn": "2022-04-26T10:40:35.663Z",
+    "id": 1100,
+    "__v": 0,
+    "url": "./public"
+}; 
+  const [selectedChannel, setSelectedChannel] = useState(defaultChannel);
   const [tweets, setTweets] = useState([]);
   const { user } = useContext(LoginContext);
   const [channels, setChannels] = useState([]);
@@ -32,7 +40,9 @@ export default function TweetPage() {
   }, [channels]);
 
   useEffect(() => {
-    tweet
+    if(selectedChannel){
+
+      tweet
       .getTweetByChannels({ selectedChannels: [selectedChannel.id] })
       .then((res) => {
         console.log(res);
@@ -41,7 +51,8 @@ export default function TweetPage() {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedChannel]);
+    }
+    }, [selectedChannel]);
 
   const handleChannel = (channel) => {
     setSelectedChannel(channel);

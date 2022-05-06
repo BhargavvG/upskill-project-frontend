@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { FiHeart } from "react-icons/fi";
 import { BiBookmarkPlus } from "react-icons/bi";
+import { BsBookmarkPlusFill } from "react-icons/bs";
 import tweetObj from "../../services/tweet";
+import userObj from "../../services/user";
+import { LoginContext } from "../../Context/LoginContext";
 
 export default function TweetCard({ tweet }) {
   const [liked, setLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [date, setDate] = useState({});
+  const { user, verifyUser } = useContext(LoginContext);
 
   // date convertion
   useEffect(() => {
@@ -20,11 +25,19 @@ export default function TweetCard({ tweet }) {
 
   // Likes
   useEffect(() => {
-    if (tweet.likes.includes(107)) {
+    // check tweet is already liked or not
+    if (user && tweet.likes.includes(user.id)) {
       setLiked(true);
     }
+
+    // check tweet is already saved or not
+    if (user && user.savedTweets.includes(tweet.id)) {
+      setIsSaved(true);
+    }
+
+    // Counts likes of tweet
     setLikeCount(tweet.likes.length);
-  }, [tweet.likes]);
+  }, [tweet.likes, user]);
 
   const like = () => {
     if (liked) {
@@ -38,7 +51,19 @@ export default function TweetCard({ tweet }) {
   };
 
   // Save for Later
-  const saveForLater = () => {};
+  const saveForLater = () => {
+    userObj
+      .saveForLater({ id: tweet.id })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setIsSaved(!isSaved);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="float-left p-4">
@@ -66,7 +91,7 @@ export default function TweetCard({ tweet }) {
           </p>
         </div>
         <div className="border-t border-slate-200"></div>
-        <div className="flex flex-row justify-between">
+        <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center mx-auto my-3 text-lg">
             <FiHeart
               style={liked && { fill: "#f95959" }}
@@ -78,13 +103,36 @@ export default function TweetCard({ tweet }) {
             </span>
           </div>
           <div
-            className="flex items-center mx-auto my-3 text-lg"
+            className="flex items-center mx-auto my-3 text-lg cursor-pointer"
             onClick={saveForLater}
           >
-            <BiBookmarkPlus />
-            <span className="pl-2 text-sm text-slate-800">Save for Later</span>
+            {isSaved ? <BsBookmarkPlusFill /> : <BiBookmarkPlus />}
+            <span className="pl-2 text-sm text-slate-800">
+              {isSaved ? "Saved" : "Save for Later"}
+            </span>
           </div>
         </div>
+        {/* <div className="flex flex-row justify-between">
+          <div className="flex items-center mx-auto my-3 text-lg">
+            <FiHeart
+              style={liked && { fill: "#f95959" }}
+              onClick={like}
+              className={`${liked ? "like" : "dislike"}`}
+            />
+            <span className="pl-2 text-sm text-slate-800">
+              {likeCount} {likeCount > 1 ? "Likes" : "Like"}
+            </span>
+          </div>
+          <div
+            className="flex items-center mx-auto my-3 text-lg cursor-pointer"
+            onClick={saveForLater}
+          >
+            {isSaved ? <BsBookmarkPlusFill /> : <BiBookmarkPlus />}
+            <span className="pl-2 text-sm text-slate-800">
+              {isSaved ? "Saved" : "Save for Later"}
+            </span>
+          </div>
+        </div> */}
       </div>
     </div>
   );

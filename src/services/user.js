@@ -13,6 +13,9 @@ class UserService {
   updateUser(body) {
     return client.put(`/user/profile/update`, body);
   }
+  saveForLater(body) {
+    return client.post(`/user/save/`, body);
+  }
 }
 let user = new UserService();
 export default user;
