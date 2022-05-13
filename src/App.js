@@ -7,6 +7,7 @@ import Test from "./pages/Test";
 import Navbar from "./components/Navbar";
 import { LoginContext } from "./Context/LoginContext";
 import Loading from "./components/Loading/Loading";
+import Home from "./pages/Home"
 
 function App() {
   const { loggedIn, loading, user } = useContext(LoginContext);
@@ -25,6 +26,7 @@ function App() {
       <>
         <Navbar />
         <Routes>
+          <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/tweet/*" element={<Demo />}></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/test" element={<Test />}></Route>
