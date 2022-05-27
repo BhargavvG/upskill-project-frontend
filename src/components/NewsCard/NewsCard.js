@@ -35,7 +35,7 @@ export default function NewsCard() {
   ];
   return (
     <>
-      <figure class="snip1253 font-['Raleway', Arial, sans-serif] relative overflow-hidden m-3 min-w-[250px] max-w-[310px] w-full bg-[#ffffff] text-black text-base shadow-lg text-left p-2 transition duration-300 ease ">
+      <div class="snip1253 font-['Raleway', Arial, sans-serif] relative overflow-hidden m-3 min-w-[250px] max-w-[310px] w-full bg-[#ffffff] text-black text-base shadow-lg text-left p-2 transition duration-300 ease ">
         <div class="image max-h-[220px] overflow-hidden">
           <img src={news.urlToImage} className="relative max-w-full align-top hover:scale-110" alt="sample52" />
         </div>
@@ -50,8 +50,8 @@ export default function NewsCard() {
         <footer className="bg-[#20638f] text-sm text-right leading-7">
           <a href={news.url}>View Article</a>
         </footer>
-      </figure>
-      <figure class="snip1253 hover">
+      </div>
+      {/* <figure class="snip1253 hover">
         <div class="image">
           <img
             src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample66.jpg"
@@ -82,7 +82,6 @@ export default function NewsCard() {
         </footer>
         <a href="#"></a>
       </figure>
-      <figure class="snip1253">
         <div class="image">
           <img
             src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample59.jpg"
@@ -112,7 +111,7 @@ export default function NewsCard() {
           </div>
         </footer>
         <a href="#"></a>
-      </figure>
+  </figure> */}
     </>
   );
 }
