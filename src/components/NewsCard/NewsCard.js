@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./news.css";
 
 export default function NewsCard() {
   const [news, setNews] = useState({
@@ -45,73 +44,13 @@ export default function NewsCard() {
             <span class="month text-sm bg-[#0000001a]">{months[date.getMonth()]}</span>
           </div>
           <h3 className="p-0 m-0 min-h-[50px] mb-3 ml-16 inline-block font-semibold uppercase">{news.title}</h3>
-          <p className="p-0 m-0 mb-4 text-sm leading-3">{news.description}</p>
+          <p className="p-0 m-0 mb-4 text-sm leading-4">{news.description}</p>
         </section>
-        <footer className="bg-[#20638f] text-sm text-right leading-7">
+        <footer className="bg-[#20638f] text-sm text-center leading-7 text-white font-medium uppercase">
           <a href={news.url}>View Article</a>
         </footer>
       </div>
-      {/* <figure class="snip1253 hover">
-        <div class="image">
-          <img
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample66.jpg"
-            alt="sample66"
-          />
-        </div>
-        <figcaption>
-          <div class="date">
-            <span class="day">17</span>
-            <span class="month">Nov</span>
-          </div>
-          <h3>An Abstract Post Heading</h3>
-          <p>
-            Sometimes the surest sign that intelligent life exists elsewhere in
-            the universe is that none of it has tried to contact us.
-          </p>
-        </figcaption>
-        <footer>
-          <div class="views">
-            <i class="ion-eye"></i>1,870
-          </div>
-          <div class="love">
-            <i class="ion-heart"></i>973
-          </div>
-          <div class="comments">
-            <i class="ion-chatboxes"></i>85
-          </div>
-        </footer>
-        <a href="#"></a>
-      </figure>
-        <div class="image">
-          <img
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample59.jpg"
-            alt="sample59"
-          />
-        </div>
-        <figcaption>
-          <div class="date">
-            <span class="day">01</span>
-            <span class="month">Dec</span>
-          </div>
-          <h3>Down with this sort of thing</h3>
-          <p>
-            I don't need to compromise my principles, they don't have the
-            slightest bearing on what happens to me anyway.
-          </p>
-        </figcaption>
-        <footer>
-          <div class="views">
-            <i class="ion-eye"></i>928
-          </div>
-          <div class="love">
-            <i class="ion-heart"></i>198
-          </div>
-          <div class="comments">
-            <i class="ion-chatboxes"></i>23
-          </div>
-        </footer>
-        <a href="#"></a>
-  </figure> */}
+
     </>
   );
 }
