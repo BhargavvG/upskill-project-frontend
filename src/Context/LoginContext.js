@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import userObj from "../services/user";
+import userObj from "../services/user.api";
 export const LoginContext = createContext();
 
 export const LoginState = (props) => {

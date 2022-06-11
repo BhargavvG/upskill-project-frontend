@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import TextInput from "../components/Form/TextInput";
-import user from "../services/user";
+import user from "../services/user.api";
 import Alert from "../components/Alert/Alert";
 import { LoginContext } from "../Context/LoginContext";
 import { useNavigate } from "react-router-dom";

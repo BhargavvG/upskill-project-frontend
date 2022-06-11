@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { FiHeart } from "react-icons/fi";
 import { BiBookmarkPlus } from "react-icons/bi";
 import { BsBookmarkPlusFill } from "react-icons/bs";
-import tweetObj from "../../services/tweet";
-import userObj from "../../services/user";
+import tweetObj from "../../services/tweet.api";
+import userObj from "../../services/user.api";
 import { LoginContext } from "../../Context/LoginContext";
 
 export default function TweetCard({ tweet }) {

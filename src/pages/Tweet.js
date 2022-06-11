@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import TweetCard from "../components/TweetCard/TweetCard";
-import tweet from "../services/tweet";
-import channel from "../services/channel";
+import tweet from "../services/tweet.api";
+import channel from "../services/channel.api";
 import { LoginContext } from "../Context/LoginContext";
 
 export default function TweetPage() {

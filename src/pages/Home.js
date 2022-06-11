@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import NewsCard from '../components/NewsCard/NewsCard'
 import { FiSearch } from 'react-icons/fi'
+import news from "../services/news.api";
+
 
 export default function Home() {
   const [categories, setCategories] = useState([
@@ -17,12 +19,20 @@ export default function Home() {
   const [fields, setFields] = useState({})
   const selectCategory = (category) => {
     setSelectedCategory(category)
+    setSearched(category.key);
   }
 
   const handleInput = (e) => {
     if (e.key === 'enter') {
-      setSearched(fields?.[e.target.name])
+      // setSearched(fields?.[e.target.name])
+      // setSelectedCategory({})
+      handleSearch();
     }
+  }
+
+  const handleSearch = ()=>{
+    setSearched(fields["search"]);
+    setSelectedCategory({})
   }
 
   const handleChange = (e) => {
@@ -35,6 +45,10 @@ export default function Home() {
     if(searched){
       
     }
+    else {
+     let data = await news.getAllNews();
+      console.log(data)
+    }
   },[searched])
   
   // #90D3CF4D
@@ -42,7 +56,7 @@ export default function Home() {
     <div className="mx-auto max-w-[1440px]">
       <section className="flex flex-col mx-auto text-[#594636] my-4">
         <div className="flex w-auto">
-          <div className="px-10 py-4 border rounded-tl-full" style={{ boxShadow: '-2px -2px 2px 1px rgb(0 0 0 / 5%)' }}>
+          <div className="px-10 py-3 border rounded-tl-full" style={{ boxShadow: '-2px -2px 2px 1px rgb(0 0 0 / 5%)' }}>
             Some Text
           </div>
           <div className="px-10 border" style={{ boxShadow: '-2px -2px 2px 1px rgb(0 0 0 / 5%)' }}>
@@ -55,8 +69,9 @@ export default function Home() {
             ></input>
           </div>
           <div
-            className="px-4 py-4 pr-10 text-lg border rounded-tr-full"
+            className="px-4 py-3 pr-10 text-lg border rounded-tr-full cursor-pointer"
             style={{ boxShadow: '2px -2px 2px 1px rgb(0 0 0 / 5%)' }}
+            onClick={handleSearch}
           >
             <FiSearch />
           </div>
