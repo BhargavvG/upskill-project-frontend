@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import NewsCard from '../components/NewsCard/NewsCard'
+import NewsCard from '../components/NewsCard'
 import { FiSearch } from 'react-icons/fi'
-import news from "../services/news.api";
+import newsObj from "../services/news.api";
 
 
 export default function Home() {
@@ -13,7 +13,14 @@ export default function Home() {
     { title: 'Entertainment', key: 'entertainment' },
     { title: 'Tech', key: 'tech' },
   ])
+  const [allNews, setAllNews] = useState([]);
+  const [pageNews, setPageNews] = useState([]);
+  const [selectedPage, setSelecetedPage] = useState(0);
+  const [perPage, setPerPage] = useState(12);
 
+  useEffect(() => {
+    setPageNews(allNews.slice((selectedPage+1)*perPage, (selectedPage+2) * perPage))
+  },[allNews])
   const [selectedCategory, setSelectedCategory] = useState(categories[0])
   const [searched, setSearched] = useState('')
   const [fields, setFields] = useState({})
@@ -24,8 +31,6 @@ export default function Home() {
 
   const handleInput = (e) => {
     if (e.key === 'enter') {
-      // setSearched(fields?.[e.target.name])
-      // setSelectedCategory({})
       handleSearch();
     }
   }
@@ -41,14 +46,9 @@ export default function Home() {
     setFields({ ...temp })
   }
 
-  useEffect(()=>{
-    if(searched){
-      
-    }
-    else {
-     let data = await news.getAllNews();
-      console.log(data)
-    }
+  useEffect(async ()=>{
+     let data = await newsObj.getAllNews({q:searched});
+     setAllNews(data.data.articles);
   },[searched])
   
   // #90D3CF4D
@@ -96,9 +96,16 @@ export default function Home() {
         </div>
       </section>
 
-      <div>
-        <NewsCard></NewsCard>
+      {/*  News Section  */}
+      <div className="flex flex-wrap gap-4 ">
+        {pageNews.map((item, i)=>{
+          return <NewsCard news={item} key={i}></NewsCard>
+        })}
       </div>
+
+{/* Pagination  */}
+
+
     </div>
   )
 }
