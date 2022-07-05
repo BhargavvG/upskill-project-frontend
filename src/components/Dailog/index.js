@@ -1,2 +1,2 @@
-export {default as ConfirmModal} from "./ConfirmModal"
+export {default as TweetModal} from "./TweetModal"
 export {default as ProfileModal} from "./ProfileModal"
