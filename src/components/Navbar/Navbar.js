@@ -10,6 +10,10 @@ export default function Navbar() {
     { title: "Tweet", url: "/tweet" },
   ]);
 
+  const closeModal= ()=>{
+    setPopup(false);
+  }
+
   return (
     <>
       <nav className="flex items-center gap-4 p-5 px-8 shadow-lg text-gray-50 bg-slate-700">
@@ -25,16 +29,15 @@ export default function Navbar() {
           );
         })}
         <div
-          className="absolute text-2xl right-8 "
+          className="absolute text-2xl right-8 select-none cursor-pointer"
           onClick={() => {
-            console.log("log");
             setPopup(!popup);
           }}
         >
           <BsPersonFill />
         </div>
       </nav>
-      <ProfileModal show={popup} />
+      <ProfileModal show={popup} closeModal={closeModal} />
     </>
   );
 }

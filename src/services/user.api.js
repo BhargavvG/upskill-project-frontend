@@ -16,6 +16,10 @@ class UserService {
   saveForLater(body) {
     return client.post(`/user/save/`, body);
   }
+  getSavedTweets(){
+    return client.get(`/user/savedTweets`);
+
+  }
 }
 let user = new UserService();
 export default user;

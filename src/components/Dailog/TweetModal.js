@@ -3,9 +3,10 @@ import { VscChromeClose } from 'react-icons/vsc'
 import { TextInput } from '../Form'
 import Alert from '../Alert'
 import channel from '../../services/channel.api'
-import {LoginContext} from "../../Context/LoginContext"
+import { LoginContext } from '../../Context/LoginContext'
+import tweet from '../../services/tweet.api'
 
-export default function Modal( {closeModal, modalTitle, buttonText}) {
+export default function Modal({ closeModal, modalTitle, buttonText, selectedTweet }) {
   const [props, setProps] = useState([
     {
       type: 'text',
@@ -14,12 +15,12 @@ export default function Modal( {closeModal, modalTitle, buttonText}) {
       path: '',
       error: '',
       placeholder: 'Type Your msg..',
-      value: '',
-    }
+      value: selectedTweet?.msg || '',
+    },
   ])
   const [channels, setChannels] = useState([])
   const [allChannels, setAllChannels] = useState([])
-  const {user } = useContext(LoginContext)
+  const { user } = useContext(LoginContext)
   const [fieldData, setFieldData] = useState({})
   const [errors, setErrors] = useState({})
   const [alert, setAlert] = useState({ show: false })
@@ -31,22 +32,85 @@ export default function Modal( {closeModal, modalTitle, buttonText}) {
     }, 3000)
   }
 
-  const addTweet =()=>{
-    
+  useEffect(() => {
+    if (selectedTweet) {
+      setFieldData(selectedTweet)
+    }
+  }, [selectedTweet])
+
+  const addTweet = () => {
+    if (fieldData?.msg?.length > 0) {
+      if (!selectedTweet) {
+        tweet
+          .addTweet({ ...fieldData, user: user.id })
+          .then((res) => {
+            if (res.status === 200) {
+              handleAlert({
+                type: 'success',
+                text: 'Tweet Added',
+              })
+              setTimeout(() => {
+                closeModal()
+              }, 1000)
+            } else {
+              handleAlert({
+                type: 'danger',
+                text: 'Unable to Post your Tweet',
+              })
+              setErrors({ tweet: 'Unable to Post your Tweet' })
+            }
+          })
+          .catch((err) => {
+            console.log(err, 'err')
+            handleAlert({
+              type: 'danger',
+              text: 'Unable to Post your Tweet',
+            })
+          })
+      }
+      else{
+        tweet
+        .updateTweet(selectedTweet.id,{ ...fieldData,user: user.id })
+        .then((res) => {
+          if (res.status === 200) {
+            handleAlert({
+              type: 'success',
+              text: 'Tweet Updated',
+            })
+            setTimeout(() => {
+              closeModal()
+            }, 1000)
+          } else {
+            handleAlert({
+              type: 'danger',
+              text: 'Unable to update your Tweet',
+            })
+            setErrors({ tweet: 'Unable to update your Tweet' })
+          }
+        })
+        .catch((err) => {
+          console.log(err, 'err')
+          handleAlert({
+            type: 'danger',
+            text: 'Unable to update your Tweet',
+          })
+        })
+      }
+    }
   }
-  useEffect(()=>{
-    channel.getAllChannels().then((res)=>{
+
+  useEffect(() => {
+    channel.getAllChannels().then((res) => {
       setAllChannels(res.data)
     })
-  },[])
+  }, [])
 
-  useEffect(()=>{
-    
-    if(user.channels){
-      let ch = allChannels.filter((x)=> user.channels.includes(x.id) )
+  useEffect(() => {
+    if (user.channels) {
+      let ch = allChannels.filter((x) => user.channels.includes(x.id))
       setChannels(ch)
     }
-  },[user,allChannels])
+  }, [user, allChannels])
 
   // handle changes of field inputs.
   const handleChange = (e, path, key) => {
@@ -62,15 +126,17 @@ export default function Modal( {closeModal, modalTitle, buttonText}) {
     setFieldData(fields)
   }
 
-  const handleChannelChange = (i, e)=>{
+  const handleChannelChange = (i, e) => {
     let fields = fieldData
-    if(!fields.channels){
-      fields.channels=[];
+    if (!fields.channels) {
+      fields.channels = []
     }
-    if(e.target.checked){
+    if (e.target.checked) {
       fields.channels.push(channels[i].id)
     }
-    console.log(fieldData)
+    if (!e.target.checked) {
+      setFieldData({ ...fields, channels: fields.channels.filter((x) => x !== channels[i].id) })
+    }
   }
 
   return (
@@ -106,11 +172,26 @@ export default function Modal( {closeModal, modalTitle, buttonText}) {
 
             <div className="w-full px-5 pb-5 mx-auto bg-white rounded-xl">
               <h2>Select Channels</h2>
-              <div className="flex flex-wrap items-center justify-start gap-3 my-2"> {channels.map((item, i)=>{
-                return <>
-                <input type="checkbox" name={i} className="" value={item.id} onChange={(e)=>handleChannelChange(i, e)}></input>
-                <label className="" for={i}>{item.name}</label></>
-              })}</div>
+              <div className="flex flex-wrap items-center justify-start gap-3 my-2">
+                {' '}
+                {channels.map((item, i) => {
+                  return (
+                    <>
+                      <input
+                        type="checkbox"
+                        name={i}
+                        className=""
+                        value={item.id}
+                        onChange={(e) => handleChannelChange(i, e)}
+                        defaultChecked={fieldData?.channels?.includes(item.id)}
+                      ></input>
+                      <label className="" for={i}>
+                        {item.name}
+                      </label>
+                    </>
+                  )
+                })}
+              </div>
             </div>
 
             <button
