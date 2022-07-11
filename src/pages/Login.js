@@ -10,7 +10,7 @@ export default function Login() {
     {
       type: "text",
       name: "id",
-      title: "User Id",
+      title: "Id",
       path: "",
       error: "",
       placeholder: "Enter your Id",

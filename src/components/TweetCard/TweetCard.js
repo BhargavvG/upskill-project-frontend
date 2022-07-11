@@ -30,7 +30,7 @@ export default function TweetCard({ tweet, isEdit, selectTweet, deleted }) {
   // Likes
   useEffect(() => {
     // check tweet is already liked or not
-    if (user && tweet.likes.includes(user.id)) {
+    if (user && tweet?.likes?.length>0 && tweet.likes.includes(user.id)) {
       setLiked(true)
     }
 
@@ -43,15 +43,6 @@ export default function TweetCard({ tweet, isEdit, selectTweet, deleted }) {
     setLikeCount(tweet.likes.length)
 
   }, [tweet.likes, user])
-
-  useEffect(()=>{
-
-    userObj.getSavedTweets().then((res)=>{
-      console.log(res,'res')
-    }).catch((err)=>{
-      console.log(err)
-    })
-  },[])
 
   const like = () => {
     if (liked) {
@@ -118,8 +109,8 @@ export default function TweetCard({ tweet, isEdit, selectTweet, deleted }) {
             <ConfirmModal closeModal={closeModal} modalTitle="Confirm Delete">
               <div className="p-4">Are you sure you want to delete this tweet?</div>
               <div className="flex gap-4">
-                <button className="p-2 w-full px-6 mx-auto mt-4 text-lg font-medium text-center text-white rounded-lg shadow-lg bg-slate-700 hover:bg-slate-600 btn" onClick={()=>setShowConfirm(false)}> cancel</button>
-                <button className="p-2 bg-red-400  w-full px-6 mx-auto mt-4 text-lg font-medium text-center text-white rounded-lg shadow-lg hover:bg-red-600 btn" onClick={deleteTweet}> Delete</button>
+                <button className="w-full p-2 px-6 mx-auto mt-4 text-lg font-medium text-center text-white rounded-lg shadow-lg bg-slate-700 hover:bg-slate-600 btn" onClick={()=>setShowConfirm(false)}> cancel</button>
+                <button className="w-full p-2 px-6 mx-auto mt-4 text-lg font-medium text-center text-white bg-red-400 rounded-lg shadow-lg hover:bg-red-600 btn" onClick={deleteTweet}> Delete</button>
               </div>
             </ConfirmModal>
           ) : null}

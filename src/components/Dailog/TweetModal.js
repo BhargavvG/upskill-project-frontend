@@ -40,7 +40,7 @@ export default function Modal({ closeModal, modalTitle, buttonText, selectedTwee
 
   const addTweet = () => {
     if (fieldData?.msg?.length > 0) {
-      if (!selectedTweet) {
+      if (!selectedTweet?.id) {
         tweet
           .addTweet({ ...fieldData, user: user.id })
           .then((res) => {

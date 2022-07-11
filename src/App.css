@@ -36,6 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
 .like,
 .dislike {
   animation: animate 0.8s steps(28) forwards;

@@ -25,6 +25,7 @@ export default function TweetPage() {
     setRefresh(!refresh)
   }
   const openModal = () => {
+    setSelectedTweet({})
     setShowModal(true)
   }
 
@@ -44,7 +45,7 @@ export default function TweetPage() {
           closeModal={closeModal}
           modalTitle={'Post a Tweet'}
           showModal={showModal}
-          buttonText={selectedTweet? "Save" :'Add'}
+          buttonText={selectedTweet?.id ? "Save" :'Add'}
           selectedTweet={selectedTweet}
         ></TweetModal>
       ) : null}

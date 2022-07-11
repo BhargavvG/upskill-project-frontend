@@ -6,7 +6,7 @@ export default function NewsCard({ news }) {
 
   return (
     <>
-      <div class="snip1253 font-['Raleway', Arial, sans-serif] relative overflow-hidden m-3 min-w-[250px] max-w-[310px] w-full bg-[#ffffff] text-black text-base shadow-lg text-left p-2 transition duration-300 ease ">
+      <div class="font-['Raleway', Arial, sans-serif] relative overflow-hidden m-3 min-w-[250px] max-w-[310px] w-full bg-[#ffffff] text-black text-base shadow-lg text-left p-2 transition duration-300 ease h-[600x]">
         <div class="image max-h-[220px] overflow-hidden">
           <img
             src={news.urlToImage}
@@ -23,8 +23,8 @@ export default function NewsCard({ news }) {
             <span class="day leading-6 block">{date.getDay()}</span>
             <span class="month text-sm bg-[#0000001a]">{months[date.getMonth()]}</span>
           </div>
-          <h3 className="p-0 m-0 min-h-[50px] mb-3 ml-16 inline-block font-semibold uppercase">{news.title?.length>45? news.title.slice(0,45)+'...' : news.title}</h3>
-          <p className="p-0 m-0 mb-4 text-sm leading-4">{news.description?.length>240? news.description.slice(0,240)+'...' : news.description}</p>
+          <h3 className="p-0 m-0 min-h-[50px] mb-3 ml-16 inline-block font-semibold uppercase">{news.title?.length>35? news.title.slice(0,35)+'...' : news.title}</h3>
+          <p className="p-0 m-0 mb-4 text-sm leading-4 max-h-[140px] min-h-[140px]">{news.description?.length>240? news.description.slice(0,240)+'...' : news.description}</p>
         </section>
         <footer className="bg-[#20638f] text-sm text-center leading-7 text-white font-medium uppercase mb-4">
           <a href={news.url}>View Article</a>
