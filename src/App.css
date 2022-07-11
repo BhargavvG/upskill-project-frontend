@@ -51,3 +51,16 @@
     background-position: right;
   }
 }
+
+.slick-next:before {
+  content: '>' !important;
+  color: black!important;
+  height: 20px !important;
+
+}
+
+.slick-prev:before {
+  content: '<'!important;
+  color: black!important;
+  height: 20px !important;
+}

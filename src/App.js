@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar";
 import { LoginContext } from "./Context/LoginContext";
 import Loading from "./components/Loading";
 import Home from "./pages/Home"
+import Styled from "./pages/Styled";
+import ImageSlider from "./pages/ImageSlider";
 
 function App() {
   const { loggedIn, loading, user } = useContext(LoginContext);
@@ -30,6 +32,8 @@ function App() {
           <Route exact path="/tweet/*" element={<Tweet />}></Route>
           <Route exact path="/login" element={<Login />}></Route>
           <Route exact path="/test" element={<Test />}></Route>
+          <Route exact path="/styled" element={<Styled />}></Route>
+          <Route exact path="/slider" element={<ImageSlider />}></Route>
         </Routes>
       </>
     );

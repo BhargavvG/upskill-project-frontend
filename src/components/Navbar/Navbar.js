@@ -8,6 +8,7 @@ export default function Navbar() {
   const [navItems, setNavItems] = useState([
     { title: "Home", url: "/" },
     { title: "Tweet", url: "/tweet" },
+    { title: "Slider", url: "/slider" },
   ]);
 
   const closeModal= ()=>{
@@ -29,7 +30,7 @@ export default function Navbar() {
           );
         })}
         <div
-          className="absolute text-2xl right-8 select-none cursor-pointer"
+          className="absolute text-2xl cursor-pointer select-none right-8"
           onClick={() => {
             setPopup(!popup);
           }}
